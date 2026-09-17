@@ -10,8 +10,6 @@ interface CurrencyInputProps {
   error?: string | null;
 }
 
-const QUICK_ADD = [10_000, 50_000, 100_000, 500_000] as const;
-
 /**
  * Rupiah field. The user types digits; grouping dots appear as they go.
  * inputMode="numeric" brings up the number pad on phones.
@@ -33,12 +31,15 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
 
         <div
           className={cn(
-            "mt-2 flex items-baseline gap-2 rounded-slab border bg-surface px-4 py-4 transition-colors",
+            "mt-2 flex items-baseline gap-2 rounded-slab border bg-surface px-4 py-5 transition-colors",
             "focus-within:border-primary",
             error ? "border-primary" : "border-line",
           )}
         >
-          <span className="font-display text-title font-medium text-ink-muted" aria-hidden>
+          <span
+            className="font-display text-2xl font-medium text-ink-muted sm:text-3xl"
+            aria-hidden
+          >
             Rp
           </span>
           <input
@@ -54,35 +55,11 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
             aria-describedby={hint || error ? hintId : undefined}
             aria-invalid={error ? true : undefined}
             className={cn(
-              "tabular w-full min-w-0 bg-transparent font-display text-amount font-bold text-ink",
-              "outline-none placeholder:text-ink-faint/60 sm:text-[3.25rem]",
+              "tabular w-full min-w-0 break-all bg-transparent font-display font-bold text-ink",
+              "text-[clamp(3rem,13vw,5rem)] leading-none",
+              "outline-none placeholder:text-ink-faint/60",
             )}
           />
-        </div>
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          {QUICK_ADD.map((amount) => (
-            <button
-              key={amount}
-              type="button"
-              onClick={() => onValueChange(value + amount)}
-              className={cn(
-                "h-10 rounded-chip border border-line bg-surface px-3.5 text-meta font-medium text-ink-muted",
-                "transition-colors active:scale-[0.98] hover:border-ink/25 hover:text-ink touch-manipulation",
-              )}
-            >
-              +{formatDigits(amount)}
-            </button>
-          ))}
-          {value > 0 && (
-            <button
-              type="button"
-              onClick={() => onValueChange(0)}
-              className="h-10 rounded-chip px-3 text-meta font-medium text-ink-faint hover:text-ink"
-            >
-              Hapus
-            </button>
-          )}
         </div>
 
         {(hint || error) && (

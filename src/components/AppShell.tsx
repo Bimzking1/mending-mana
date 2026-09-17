@@ -41,7 +41,9 @@ export function AppShell({ screen, onNavigate, children }: AppShellProps) {
             <Button
               variant="ghost"
               size="md"
-              onClick={() => onNavigate(screen === "about" ? "home" : "about")}
+              onClick={() =>
+                onNavigate(screen === "about" ? "home" : screen === "changelog" ? "about" : "about")
+              }
               aria-current={screen === "about" ? "page" : undefined}
               className="px-3"
             >

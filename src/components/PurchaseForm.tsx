@@ -10,13 +10,11 @@ interface PurchaseFormProps {
   onSubmit: (query: ComparisonQuery) => void;
 }
 
-const ITEM_SUGGESTIONS = ["Sepatu baru", "Headphone", "Skincare", "Tiket konser", "HP baru"];
-
 export function PurchaseForm({ initial, onSubmit }: PurchaseFormProps) {
   const itemId = useId();
   const [itemName, setItemName] = useState(initial.itemName);
   const [budget, setBudget] = useState(initial.budget);
-  const [category, setCategory] = useState<CategoryId | null>(initial.category);
+  const [categories, setCategories] = useState<CategoryId[]>(initial.categories);
   const [error, setError] = useState<string | null>(null);
 
   function handleSubmit(event: FormEvent) {
@@ -26,7 +24,7 @@ export function PurchaseForm({ initial, onSubmit }: PurchaseFormProps) {
       return;
     }
     setError(null);
-    onSubmit({ itemName: itemName.trim(), budget, category });
+    onSubmit({ itemName: itemName.trim(), budget, categories });
   }
 
   return (
@@ -45,18 +43,6 @@ export function PurchaseForm({ initial, onSubmit }: PurchaseFormProps) {
           maxLength={60}
           className="mt-2 h-14 w-full rounded-control border border-line bg-surface px-4 text-lead text-ink outline-none transition-colors placeholder:text-ink-faint/70 focus:border-primary"
         />
-        <div className="no-scrollbar -mx-4 mt-2 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
-          {ITEM_SUGGESTIONS.map((suggestion) => (
-            <button
-              key={suggestion}
-              type="button"
-              onClick={() => setItemName(suggestion)}
-              className="h-9 shrink-0 rounded-chip bg-sunken px-3 text-meta text-ink-muted transition-colors hover:text-ink active:scale-[0.98]"
-            >
-              {suggestion}
-            </button>
-          ))}
-        </div>
       </div>
 
       <CurrencyInput
@@ -66,11 +52,11 @@ export function PurchaseForm({ initial, onSubmit }: PurchaseFormProps) {
           setBudget(value);
           if (value > 0) setError(null);
         }}
-        hint="Boleh ketik 50000, nanti kami rapikan."
+        hint="Cukup ketik angkanya, contohnya 500000 — nanti kita rapikan jadi Rp500.000."
         error={error}
       />
 
-      <CategorySelector value={category} onChange={setCategory} />
+      <CategorySelector value={categories} onChange={setCategories} />
 
       {/* Stays within thumb reach on phones, inline on larger screens. */}
       <div className="sticky bottom-0 -mx-4 bg-gradient-to-t from-paper via-paper to-transparent px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:static sm:mx-0 sm:bg-none sm:p-0">

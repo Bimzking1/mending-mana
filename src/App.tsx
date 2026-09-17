@@ -4,10 +4,11 @@ import { HomeScreen } from "@/screens/HomeScreen";
 import { InputScreen } from "@/screens/InputScreen";
 import { ResultScreen } from "@/screens/ResultScreen";
 import { AboutScreen } from "@/screens/AboutScreen";
+import { ChangelogScreen } from "@/screens/ChangelogScreen";
 import { BrandLogo } from "@/components/BrandLogo";
 import type { ComparisonQuery, Screen } from "@/types";
 
-const EMPTY_QUERY: ComparisonQuery = { itemName: "", budget: 0, category: null };
+const EMPTY_QUERY: ComparisonQuery = { itemName: "", budget: 0, categories: [] };
 
 /** Short beat between tapping and the reveal, so the result lands as an answer. */
 const REVEAL_MS = 420;
@@ -19,7 +20,15 @@ export default function App() {
   const headingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
+    // Force to the very top on every screen change. Also run after the frame
+    // so the new screen's height is settled and no browser restores a scroll.
+    const scrollToTop = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+    scrollToTop();
+    requestAnimationFrame(scrollToTop);
     headingRef.current?.focus();
   }, [screen]);
 
@@ -53,7 +62,10 @@ export default function App() {
             onRestart={handleRestart}
           />
         )}
-        {screen === "about" && <AboutScreen />}
+        {screen === "about" && (
+          <AboutScreen onBack={() => setScreen("home")} onShowChangelog={() => setScreen("changelog")} />
+        )}
+        {screen === "changelog" && <ChangelogScreen onBack={() => setScreen("about")} />}
       </div>
 
       {isRevealing && <RevealCurtain />}

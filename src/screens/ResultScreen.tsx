@@ -1,12 +1,11 @@
-import { useMemo, useState } from "react";
-import { Check, Copy, RefreshCw } from "lucide-react";
+import { useMemo } from "react";
+import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { PriceDisplay } from "@/components/PriceDisplay";
 import { ComparisonResults } from "@/components/ComparisonResults";
 import { EmptyState } from "@/components/EmptyState";
 import { cheapestPrice, selectComparisons } from "@/lib/compare";
 import { referenceItems } from "@/lib/referenceData";
-import { buildShareText, copyText } from "@/lib/share";
 import { formatRupiah } from "@/lib/format";
 import type { ComparisonQuery } from "@/types";
 
@@ -17,21 +16,12 @@ interface ResultScreenProps {
 }
 
 export function ResultScreen({ query, onEditPrice, onRestart }: ResultScreenProps) {
-  const [copied, setCopied] = useState(false);
-
   const comparisons = useMemo(
     () => selectComparisons(referenceItems, query),
     [query],
   );
 
   const minimum = cheapestPrice(referenceItems);
-
-  async function handleCopy() {
-    const ok = await copyText(buildShareText(query.budget, comparisons));
-    if (!ok) return;
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 2000);
-  }
 
   return (
     <div className="pb-4 pt-8">
@@ -66,25 +56,19 @@ export function ResultScreen({ query, onEditPrice, onRestart }: ResultScreenProp
         Angka di atas perkiraan. Harga asli beda-beda tergantung kota, promo, dan waktu.
       </p>
 
-      <div className="sticky bottom-0 mt-6 flex flex-col gap-2 bg-gradient-to-t from-paper via-paper to-transparent pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:static sm:flex-row sm:bg-none sm:pb-0">
-        <Button size="lg" full onClick={onEditPrice} className="sm:w-auto sm:px-7">
+      <div className="sticky bottom-0 mt-6 flex gap-2 bg-gradient-to-t from-paper via-paper to-transparent pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:static sm:bg-none sm:pb-0">
+        <Button size="lg" full onClick={onEditPrice}>
           Coba harga lain
         </Button>
-        <div className="flex gap-2">
-          <Button variant="outline" size="lg" full onClick={handleCopy} className="sm:w-auto sm:px-5">
-            {copied ? <Check size={20} aria-hidden /> : <Copy size={20} aria-hidden />}
-            {copied ? "Tersalin" : "Salin hasil"}
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={onRestart}
-            aria-label="Mulai dari awal"
-            className="px-5"
-          >
-            <RefreshCw size={20} aria-hidden />
-          </Button>
-        </div>
+        <Button
+          variant="outline"
+          size="lg"
+          onClick={onRestart}
+          aria-label="Mulai dari awal"
+          className="shrink-0 px-6"
+        >
+          <RefreshCw size={20} aria-hidden />
+        </Button>
       </div>
     </div>
   );

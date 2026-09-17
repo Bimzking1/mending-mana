@@ -14,6 +14,11 @@ export function formatRupiah(value: number): string {
   return rupiah.format(Math.max(0, Math.round(value))).replace(/\s/g, "");
 }
 
+/** 500000 → "Rp 500.000" — keeps the space after "Rp" (a non-breaking space). */
+export function formatRupiahSpaced(value: number): string {
+  return rupiah.format(Math.max(0, Math.round(value)));
+}
+
 /** 500000 → "500.000" (used while typing, where "Rp" is a separate element) */
 export function formatDigits(value: number): string {
   return plain.format(Math.max(0, Math.round(value)));
