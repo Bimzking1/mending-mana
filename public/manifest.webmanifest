@@ -1,0 +1,12 @@
+{
+  "name": "Mending mana?",
+  "short_name": "Mending mana?",
+  "description": "Sebelum beli, coba bandingin dulu.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF7F1",
+  "theme_color": "#FBF7F1",
+  "icons": [
+    { "src": "/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Mending mana? — sebelum beli, bandingin dulu</title>
+    <meta
+      name="description"
+      content="Masukkin harga barang yang mau kamu beli, lihat uang segitu ternyata bisa jadi apa aja."
+    />
+    <meta name="theme-color" content="#FBF7F1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14110F" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/app-icon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <meta property="og:title" content="Mending mana?" />
+    <meta property="og:description" content="Sebelum beli, coba bandingin dulu." />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Applied before first paint so the theme never flashes.
+      (function () {
+        try {
+          var stored = localStorage.getItem("mm-theme");
+          var dark =
+            stored === "dark" ||
+            (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (e) {
+          /* storage blocked — fall back to light */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
