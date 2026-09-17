@@ -3,34 +3,43 @@ import { CATEGORIES } from "@/lib/categories";
 import type { CategoryId } from "@/types";
 
 interface CategorySelectorProps {
-  value: CategoryId | null;
-  onChange: (value: CategoryId | null) => void;
+  value: CategoryId[];
+  onChange: (value: CategoryId[]) => void;
 }
 
 /**
- * Optional filter. Scrolls horizontally on phones, wraps from sm up.
- * Edge padding keeps the first and last chip reachable with a thumb.
+ * Optional filter. Chips wrap on every screen size so all options are
+ * visible without horizontal scrolling. "Semua" clears every selection.
  */
 export function CategorySelector({ value, onChange }: CategorySelectorProps) {
+  function toggle(id: CategoryId) {
+    onChange(
+      value.includes(id)
+        ? value.filter((selected) => selected !== id)
+        : [...value, id],
+    );
+  }
+
   return (
     <div>
       <p className="text-meta font-medium text-ink-muted">
-        Mau dibandingin sama apa? <span className="text-ink-faint">(opsional)</span>
+        Mau dibandingin sama apa?{" "}
+        <span className="text-ink-faint">(opsional, bisa pilih lebih dari satu)</span>
       </p>
 
       <div
         role="group"
         aria-label="Kategori pembanding"
-        className="no-scrollbar -mx-4 mt-2 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+        className="mt-2 flex flex-wrap gap-2"
       >
-        <Chip selected={value === null} onClick={() => onChange(null)}>
+        <Chip selected={value.length === 0} onClick={() => onChange([])}>
           Semua
         </Chip>
         {CATEGORIES.map((category) => (
           <Chip
             key={category.id}
-            selected={value === category.id}
-            onClick={() => onChange(value === category.id ? null : category.id)}
+            selected={value.includes(category.id)}
+            onClick={() => toggle(category.id)}
           >
             <span aria-hidden>{category.emoji}</span>
             {category.label}

@@ -17,7 +17,7 @@ export function TickerPreview() {
       selectComparisons(referenceItems, {
         itemName: "",
         budget: PREVIEW_BUDGET,
-        category: null,
+        categories: [],
       }, 6),
     [],
   );

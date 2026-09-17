@@ -54,11 +54,13 @@ globally in `src/index.css`.
 
 ## The comparison card
 
-The quantity is the largest thing on the card, in the display face. Under it the product,
-then the brand. The reference price sits on a dotted leader line — the one borrowed
-detail, from a printed warung menu and a shopping receipt — with the unit on the right.
-Leftover money appears only when there is some. No progress bars, no percentages, no
-gauges: this is not a finance app.
+One compact, centred column: the category emoji sits on a soft round tint at the top,
+then the quantity — the loudest element, scaling with the card so `~11×` reads at a
+glance. The product name and brand follow, centred, and the reference price appears as a
+quiet pill under the brand, followed by leftover money only when there is some. On
+phones the cards run in a horizontal snap carousel with the next card peeking, so
+nothing is hidden behind a scroll; from `md` they widen into a 2–3 column grid. No
+progress bars, no percentages, no gauges: this is not a finance app.
 
 ## Copy
 

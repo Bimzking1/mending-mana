@@ -69,10 +69,21 @@ export interface ComparisonQuery {
   itemName: string;
   /** Rupiah. */
   budget: number;
-  /** null = "Semua". */
-  category: CategoryId | null;
+  /** Empty array = "Semua". Supports multi-select. */
+  categories: CategoryId[];
 }
 
 export type ThemeMode = "light" | "dark" | "system";
 
-export type Screen = "home" | "input" | "result" | "about";
+export type Screen = "home" | "input" | "result" | "about" | "changelog";
+
+export interface ChangelogEntry {
+  /** Strictly incrementing; consumers sort by this. */
+  version: string;
+  /** ISO date. */
+  date: string;
+  title: string;
+  /** Short summary rendered under the title. */
+  description: string;
+  changes: string[];
+}

@@ -19,3 +19,15 @@ export function getCategory(id: CategoryId): Category {
   if (!found) throw new Error(`Unknown category: ${id}`);
   return found;
 }
+
+/**
+ * Static class strings for the soft tint behind category emoji.
+ * Tailwind must be able to see these whole at build time — no interpolation.
+ */
+export const CATEGORY_TONE_SURFACE: Record<string, string> = {
+  primary: "bg-primary-soft text-primary",
+  lemon: "bg-lemon-soft text-lemon",
+  laut: "bg-laut-soft text-laut",
+  daun: "bg-daun-soft text-daun",
+  terong: "bg-terong-soft text-terong",
+};

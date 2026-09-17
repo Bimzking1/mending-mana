@@ -1,6 +1,19 @@
-export function AboutSection() {
+import { ArrowLeft, History } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+
+interface AboutSectionProps {
+  onBack: () => void;
+  onShowChangelog: () => void;
+}
+
+export function AboutSection({ onBack, onShowChangelog }: AboutSectionProps) {
   return (
     <section className="space-y-4 pt-10">
+      <Button variant="ghost" size="md" onClick={onBack} className="-ml-2 px-2">
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+        Kembali ke beranda
+      </Button>
+
       <h1 className="font-display text-hero font-bold text-ink">Tentang</h1>
 
       <p className="max-w-[60ch] text-lead text-ink">
@@ -22,6 +35,13 @@ export function AboutSection() {
           Harga pembanding di aplikasi ini masih data contoh dan bisa beda jauh tergantung kota,
           promo, dan waktu. Anggap saja perkiraan kasar, bukan harga resmi.
         </p>
+      </div>
+
+      <div className="flex flex-wrap gap-3 pt-2">
+        <Button variant="outline" size="md" onClick={onShowChangelog}>
+          <History className="h-4 w-4" aria-hidden="true" />
+          Lihat changelog
+        </Button>
       </div>
     </section>
   );

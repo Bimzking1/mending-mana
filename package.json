@@ -9,6 +9,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "scrape": "node --experimental-strip-types scraper/collect.ts",
     "scrape:source": "node --experimental-strip-types scraper/collect.ts --source",
     "data:validate": "node --experimental-strip-types scraper/validate.ts",
@@ -33,6 +35,7 @@
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3",
-    "vite": "^5.4.10"
+    "vite": "^5.4.10",
+    "vitest": "^2.1.9"
   }
 }
