@@ -3,6 +3,20 @@ import type { ChangelogEntry } from "@/types";
 /** Human-readable changelog shown on the Changelog screen. Newest first. */
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.4.0",
+    date: "2026-09-18",
+    title: "Fokus yang lebih tajam",
+    description: "Pilih kategori dengan tenang — hasilnya nggak nyasar lagi.",
+    changes: [
+      "Kategori bisa dipilih lebih dari satu sekaligus, dan hasilnya benar-benar berisi kategori pilihanmu saja.",
+      "Tombol kategori otomatis turun ke baris baru — nggak ada lagi pilihan yang kepotong di layar sempit.",
+      "Angka harga dan label ± harga di kartu hasil diperbesar biar lebih gampang dibaca.",
+      "Saran chip di bawah kolom harga dihapus, biar fokus ke harga dan kategori.",
+      "Saran nama barang dihilangkan dari kolom 'Mau beli apa?'.",
+      "Tombol 'Salin hasil' disingkirkan; cukup 'Coba harga lain' dan tombol mulai ulang yang berdampingan.",
+    ],
+  },
+  {
     version: "0.3.0",
     date: "2026-09-17",
     title: "Mesin pembanding yang lebih pintar",
